@@ -1,0 +1,31 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:14
+    environment:
+      - POSTGRES_PASSWORD=123456
+    ports:
+      - "15432:5432"
+    volumes:
+      - ./docker/postgresql/data:/var/lib/postgresql/data 
+    networks:
+      - postgres-network
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=email@email.com
+      - PGADMIN_DEFAULT_PASSWORD=123456
+    ports:
+      - "16543:80"
+    volumes:
+      - ./docker/pgadmin4:/var/lib/pgadmin
+    depends_on:
+      - postgres
+    networks:
+      - postgres-network
+
+networks: 
+  postgres-network:
+    driver: bridge

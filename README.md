@@ -18,23 +18,26 @@ Além dos endpoints criar as telas no admin.
 
 ## Como iniciar
 
-* Execute o comando abaixo para utilizar o docker compose e criar o banco de dados:
+* Execute o comando abaixo para utilizar o docker compose e criar os banco de dados:
   * ```cd .\docker-compose\```
   * ```docker-compose -f .\docker-compose-postgres.yml up -d```
+  * ```docker-compose -f .\docker-compose-redis.yml up -d```
 * Acesse a URL:
   * ``http://127.0.0.1:16543``
   * Username: email@email.com
   * Password: 123456
 * Crie a conexão
 * Crie um banco de dados de acordo com o nome existente na váriavel **DB_NAME** 
-* Retorne a pasta raiz e execute os comando abaixo para baixar as dependencias:
+* Retorne a pasta raiz, entre na pasta final_project interna e execute os comando abaixo para baixar as dependencias:
   * ``pip install -r .\requirements.txt``
 * Execute o comando abaixo para a estrutura do banco de dados
   * ``python .\manage.py migrate``
-* Execute eo comando abaixo para iniciar o projeto:
-  * ``python .\manage.py runserver``
 * Execute o comando abaixo para criar um usuário de acesso:
   * ``python.exe .\manage.py createsuperuser --email email@email.com``
   * Informe os dados conforme requisitado
+* Execute o comando abaixo para iniciar o projeto:
+  * ``python .\manage.py runserver``
 * Acesse a URL:
   * ``http://127.0.0.1:8000/ ``
+* Abra um terminal na pasta raiz do projeto e execute o seguinte comando para iniciar o celery worker
+  * ``celery -A final_project worker --loglevel=DEBUG --pool=gevent -Q default``
